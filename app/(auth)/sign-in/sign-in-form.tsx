@@ -95,87 +95,112 @@ const SignInForm = () => {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
-        <CardDescription className="text-xs md:text-sm">
-          Enter your email below to login to your account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="your@email.com"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+    <>
+      <Card className="w-full max-w-md">
+        <div className="flex w-full flex-col items-center justify-between gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-[80%] gap-2"
+            disabled={loading}
+            onClick={() => handleSocialSignIn("github")}
+          >
+            <GitHubIcon />
+            Sign in with Github
+          </Button>
+          
+          <Button
+            type="button"
+            variant="outline"
+            className="w-[80%] gap-2"
+            disabled={loading}
+            onClick={() => handleSocialSignIn("google")}
+          >
+            <GoogleIcon width="0.98em" height="1em" />
+            Sign in with Google
+          </Button>
+        </div>
+        <div className="text-center">or</div>
+        <CardHeader>
+          <CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
+          <CardDescription className="text-xs md:text-sm">
+            Enter your email below to login to your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="your@email.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center">
+                      <FormLabel>Password</FormLabel>
+                      <Link
+                        href="/forgot-password"
+                        className="ml-auto inline-block text-sm underline"
+                      >
+                        Forgot your password?
+                      </Link>
+                    </div>
+                    <FormControl>
+                      <PasswordInput
+                        autoComplete="current-password"
+                        placeholder="Password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="rememberMe"
+                render={({ field }) => (
+                  <FormItem className="flex items-center gap-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel>Remember me</FormLabel>
+                  </FormItem>
+                )}
+              />
+
+              {error && (
+                <div role="alert" className="text-sm text-red-600">
+                  {error}
+                </div>
               )}
-            />
 
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex items-center">
-                    <FormLabel>Password</FormLabel>
-                    <Link
-                      href="/forgot-password"
-                      className="ml-auto inline-block text-sm underline"
-                    >
-                      Forgot your password?
-                    </Link>
-                  </div>
-                  <FormControl>
-                    <PasswordInput
-                      autoComplete="current-password"
-                      placeholder="Password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              <LoadingButton type="submit" className="w-full" loading={loading}>
+                Login
+              </LoadingButton>
 
-            <FormField
-              control={form.control}
-              name="rememberMe"
-              render={({ field }) => (
-                <FormItem className="flex items-center gap-2">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormLabel>Remember me</FormLabel>
-                </FormItem>
-              )}
-            />
-
-            {error && (
-              <div role="alert" className="text-sm text-red-600">
-                {error}
-              </div>
-            )}
-
-            <LoadingButton type="submit" className="w-full" loading={loading}>
-              Login
-            </LoadingButton>
-
-            <div className="flex w-full flex-col items-center justify-between gap-2">
+              {/* <div className="flex w-full flex-col items-center justify-between gap-2">
               <Button
                 type="button"
                 variant="outline"
@@ -197,22 +222,23 @@ const SignInForm = () => {
                 <GitHubIcon />
                 Sign in with Github
               </Button>
-            </div>
-          </form>
-        </Form>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full justify-center border-t pt-4">
-          <p className="text-muted-foreground text-center text-xs">
-            Don&apos;t have an account?{" "}
-            <Link href="/sign-up" className="underline">
-              Sign up
-            </Link>
-          </p>
-        </div>
-      </CardFooter>
-    </Card>
+            </div> */}
+            </form>
+          </Form>
+        </CardContent>
+        <CardFooter>
+          <div className="flex w-full justify-center border-t pt-4">
+            <p className="text-muted-foreground text-center text-xs">
+              Don&apos;t have an account?{" "}
+              <Link href="/sign-up" className="underline">
+                Sign up
+              </Link>
+            </p>
+          </div>
+        </CardFooter>
+      </Card>
+    </>
   );
-}
+};
 
-export default SignInForm
+export default SignInForm;
