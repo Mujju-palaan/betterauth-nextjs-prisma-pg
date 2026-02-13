@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    authInterrupts: true, // for unauthorized() , forbiden pages and redirect() in server components
+  },
+  // eslint: {
+  //   ignoreDuringBuilds: true,
+  // },
 };
 
 export default nextConfig;

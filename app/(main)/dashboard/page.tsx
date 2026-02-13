@@ -14,7 +14,7 @@ import { format } from "date-fns";
 import { CalendarDaysIcon, MailIcon, ShieldIcon, UserIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { unauthorized, redirect  } from "next/navigation";
+import { unauthorized } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -24,8 +24,7 @@ export default async function DashboardPage() {
   const session = await getServerSession();
   const user = session?.user;
 
-  // if (!user) unauthorized();
-  if (!user) {redirect("/sign-in");}
+  if (!user) unauthorized();
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-12">
